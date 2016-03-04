@@ -1,0 +1,22 @@
+# Required-Start:    mount-usb-gadget.sh
+# Required-Stop:
+# Default-Start:     S
+# Default-Stop:
+# Short-Description: load usb ncm-serial gadget
+# Description:       The original beaglebone black BSP uses systemd
+#                    for starting up USB based network services. With
+#                    older OE distributions that might not reliably work.
+#                    We start the required support script provided by
+#                    the layer meta-beagleboard-extra manually therefore.
+### END INIT INFO
+
+. /etc/default/rcS
+
+modprobe g_ncm
+
+sleep 1
+
+/sbin/ifconfig usb0 192.168.7.2 netmask 255.255.255.252
+/usr/sbin/udhcpd -f -S /etc/udhcpd.conf &
+
+: exit 0

@@ -1,0 +1,17 @@
+# Required-Start:    mount-usb-gadget.sh
+# Required-Stop:
+# Default-Start:     S
+# Default-Stop:
+# Short-Description: Mount all usb gadget devices
+# Description:       The original beaglebone black BSP uses systemd
+#                    for starting up USB based network services. With
+#                    older OE distributions that might not reliably work.
+#                    We start the required support script provided by
+#                    the layer meta-beagleboard-extra manually therefore.
+### END INIT INFO
+
+. /etc/default/rcS
+
+/usr/bin/g-ether-load-mcu.sh &
+
+: exit 0
