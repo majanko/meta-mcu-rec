@@ -6,9 +6,23 @@ PR = "r0"
 COMPATIBLE_MACHINE = "(beaglebone)"
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
-#RDEPENDS_${PN} = "kernel-module-g-multi kernel-module-mii kernel-module-usbnet kernel-module-cdc-ncm gadget-init gadget-init-network"
-#RDEPENDS_${PN} = "kernel-module-g-multi kernel-module-usbnet kernel-module-cdc-acm kernel-module-cdc-eem kernel-module-cdc-ether kernel-module-cdc-mbim kernel-module-cdc-ncm kernel-module-cdc-subset gadget-init gadget-init-network"
-RDEPENDS_${PN} = "kernel-module-g-multi kernel-module-usbnet kernel-module-cdc-ether kernel-module-cdc-ncm kernel-module-cdc-subset gadget-init gadget-init-network kernel-module-xt-redirect kernel-module-xt-state"
+RDEPENDS_${PN} = "kernel-module-g-multi \
+	kernel-module-usbnet \
+	kernel-module-cdc-ether \
+	kernel-module-cdc-ncm \
+	kernel-module-cdc-subset \
+	gadget-init \
+	gadget-init-network \
+	kernel-module-x-tables \
+        kernel-module-ip-tables \
+	kernel-module-iptable-filter \
+	kernel-module-iptable-nat \
+	kernel-module-nf-defrag-ipv4 \
+	kernel-module-nf-conntrack-ipv4 \
+	kernel-module-nf-nat \
+	kernel-module-xt-redirect \
+	kernel-module-xt-tcpudp \
+"
 SRC_URI = "file://mount-usb-gadget \
 "
 
