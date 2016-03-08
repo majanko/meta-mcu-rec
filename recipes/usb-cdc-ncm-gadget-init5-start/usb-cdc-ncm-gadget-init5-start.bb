@@ -22,6 +22,7 @@ RDEPENDS_${PN} = "kernel-module-g-multi \
 	kernel-module-nf-nat \
 	kernel-module-xt-redirect \
 	kernel-module-xt-tcpudp \
+	kernel-module-xt-nat \
 "
 SRC_URI = "file://mount-usb-gadget \
 "

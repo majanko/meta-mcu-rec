@@ -24,10 +24,13 @@ sleep 1
 /sbin/ifconfig usb0 192.168.140.218 netmask 255.255.255.252
 /sbin/ifconfig eth0 192.168.11.2 netmask 255.255.255.252
 
-echo 1 >/proc/sys/net/ipv4/ip_forward
-iptables -t nat -A PREROUTING -p tcp -d 192.168.11.2 --dport 23451 -j DNAT --to 192.168.140.217:451
-iptables -t nat -A PREROUTING -p udp -d 192.168.11.2 --dport 23451 -j DNAT --to 192.168.140.217:451
-iptables -t nat -A PREROUTING -p tcp -d 192.168.140.218 --dport 451 -j DNAT --to 192.168.11.1:23451
-iptables -t nat -A PREROUTING -p udp -d 192.168.140.218 --dport 451 -j DNAT --to 192.168.11.1:23451
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+/usr/sbin/iptables -t nat -A PREROUTING -p tcp -d 192.168.11.2 --dport 23451 -j DNAT --to 192.168.140.217:451
+/usr/sbin/iptables -t nat -A PREROUTING -p udp -d 192.168.11.2 --dport 23451 -j DNAT --to 192.168.140.217:451
+/usr/sbin/iptables -t nat -A PREROUTING -p udp -d 192.168.140.218 --dport 451 -j DNAT --to 192.168.1.1:23451
+/usr/sbin/iptables -t nat -A PREROUTING -p tcp -d 192.168.140.218 --dport 451 -j DNAT --to 192.168.1.1:23451
+
+/usr/sbin/udhcpd -f -S /etc/udhcpd.conf &
 
 : exit 0
