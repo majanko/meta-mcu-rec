@@ -23,12 +23,16 @@ RDEPENDS_${PN} = "kernel-module-g-multi \
 	kernel-module-xt-redirect \
 	kernel-module-xt-tcpudp \
 	kernel-module-xt-nat \
+	kernel-module-8021q \
 "
 SRC_URI = "file://mount-usb-gadget \
+	file://udhcpd.conf \
+        file://udhcpd.rules \
 "
 
 INITSCRIPT_PACKAGES = "${PN}"
-INITSCRIPT_NAME_${PN} = "mount-usb-gadget"
+INITSCRIPT_NAME_${PN} = "mount-usb-gadget \
+"
 INITSCRIPT_PARAMS_${PN} = "start 20 2 3 4 5 . stop 80 0 1 6 ."
 
 inherit update-rc.d
@@ -39,4 +43,6 @@ do_install() {
 
 do_install_append() {
   install -m 0755 ${WORKDIR}/mount-usb-gadget -D ${D}${sysconfdir}/init.d/mount-usb-gadget
+  install -m 0644 ${WORKDIR}/udhcpd.conf ${D}${sysconfdir}
+  install -m 0644 ${WORKDIR}/udhcpd.rules ${D}${sysconfdir}
 }
