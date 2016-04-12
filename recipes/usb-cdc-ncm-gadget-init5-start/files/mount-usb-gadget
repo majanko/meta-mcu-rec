@@ -22,23 +22,23 @@ modprobe 8021q
 
 sleep 1
 
-/sbin/vconfig add usb0 160
+/sbin/vconfig add usb0 167
 /bin/ip addr del 192.168.7.2/24 dev usb0
 
 /sbin/ifconfig usb0 up
 /sbin/ifconfig eth0 192.168.11.2 netmask 255.255.255.248
-/sbin/ifconfig usb0.160 192.168.140.218 netmask 255.255.255.248
+/sbin/ifconfig usb0.167 160.48.199.182 netmask 255.255.255.252
 
 echo 1 > /proc/sys/net/ipv4/ip_forward
 
 /usr/sbin/iptables -t nat -F                                                                                                     
-/usr/sbin/iptables -t nat -A PREROUTING  -p tcp -d 192.168.11.2    --dport 23451 -j DNAT --to-destination 192.168.140.217:451    
-/usr/sbin/iptables -t nat -A POSTROUTING -p tcp -d 192.168.140.217 --dport 451   -j SNAT --to-source      192.168.140.218:451    
-/usr/sbin/iptables -t nat -A PREROUTING  -p tcp -d 192.168.140.218 --dport 451   -j DNAT --to-destination 192.168.11.1:23451     
+/usr/sbin/iptables -t nat -A PREROUTING  -p tcp -d 192.168.11.2    --dport 23451 -j DNAT --to-destination 160.48.199.181:451    
+/usr/sbin/iptables -t nat -A POSTROUTING -p tcp -d 160.48.199.181  --dport 451   -j SNAT --to-source      160.48.199.182:451    
+/usr/sbin/iptables -t nat -A PREROUTING  -p tcp -d 160.48.199.182  --dport 451   -j DNAT --to-destination 192.168.11.1:23451     
 /usr/sbin/iptables -t nat -A POSTROUTING -p tcp -d 192.168.11.1    --dport 23451 -j SNAT --to-source      192.168.11.2:23451     
-/usr/sbin/iptables -t nat -A PREROUTING  -p udp -d 192.168.11.2    --dport 23451 -j DNAT --to-destination 192.168.140.217:451    
-/usr/sbin/iptables -t nat -A POSTROUTING -p udp -d 192.168.140.217 --dport 451   -j SNAT --to-source      192.168.140.218:451    
-/usr/sbin/iptables -t nat -A PREROUTING  -p udp -d 192.168.140.218 --dport 451   -j DNAT --to-destination 192.168.11.1:23451     
+/usr/sbin/iptables -t nat -A PREROUTING  -p udp -d 192.168.11.2    --dport 23451 -j DNAT --to-destination 160.48.199.181:451    
+/usr/sbin/iptables -t nat -A POSTROUTING -p udp -d 160.48.199.181  --dport 451   -j SNAT --to-source      160.48.199.182:451    
+/usr/sbin/iptables -t nat -A PREROUTING  -p udp -d 160.48.199.182  --dport 451   -j DNAT --to-destination 192.168.11.1:23451     
 /usr/sbin/iptables -t nat -A POSTROUTING -p udp -d 192.168.11.1    --dport 23451 -j SNAT --to-source      192.168.11.2:23451
 
 /usr/sbin/udhcpd -f -S /etc/udhcpd.conf &
